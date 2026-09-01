@@ -1,4 +1,3 @@
-import Button from "../components/Button";
 import Container from "../components/Container";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
@@ -34,7 +33,7 @@ export default function HowItWorksIntro() {
   return (
     <section id="how-it-works" className="bg-[#faf9f6] py-8 lg:py-20">
       <Container ref={ref} className="flex flex-col gap-6 lg:gap-10">
-        <div className={`order-1 flex flex-col gap-2 lg:gap-4 ${reveal} ${visible ? shown : hidden}`}>
+        <div className={`flex flex-col gap-2 lg:gap-4 ${reveal} ${visible ? shown : hidden}`}>
           <p className="font-['Caveat'] text-[length:var(--fontsize-headline-xs)] leading-[var(--lineheight-headline-xs)] text-[#524f4d] lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
             HOW IT WORKS
           </p>
@@ -43,17 +42,17 @@ export default function HowItWorksIntro() {
           </h2>
         </div>
 
-        <div className="order-3 flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 lg:order-2 lg:gap-4">
+        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 lg:gap-4">
           {STEPS.map((step, index) => (
             <div
               key={step.number}
-              className={`flex w-[300px] shrink-0 snap-start flex-col gap-6 rounded-2xl bg-[#f0f0f0] p-4 lg:w-[320px] ${reveal} ${visible ? shown : hidden}`}
+              className={`flex w-[300px] shrink-0 snap-start flex-col gap-6 rounded-2xl bg-[#f0f0f0] p-4 md:h-[172px] md:gap-4 md:p-6 lg:h-auto lg:w-[320px] lg:gap-6 ${reveal} ${visible ? shown : hidden}`}
               style={{ transitionDelay: `${150 + index * 150}ms` }}
             >
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-content-primary font-['Rubik'] text-[length:var(--fontsize-headline-xs)] leading-[var(--lineheight-headline-xs)] font-medium text-content-primary lg:size-12 lg:text-[length:var(--fontsize-headline-m)] lg:leading-normal">
                 {step.number}
               </span>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 md:gap-4 lg:gap-2">
                 <p className="font-['Rubik'] text-[length:var(--fontsize-headline-s)] leading-[var(--lineheight-headline-s)] font-medium text-content-primary">
                   {step.title}
                 </p>
@@ -63,21 +62,6 @@ export default function HowItWorksIntro() {
               </div>
             </div>
           ))}
-        </div>
-
-        <div className={`order-2 flex flex-row flex-wrap gap-4 lg:order-3 ${reveal} delay-[750ms] ${visible ? shown : hidden}`}>
-          <Button
-            variant="outline"
-            className="!px-[12px] !py-[9px] !text-[length:var(--fontsize-label-m)] md:w-auto md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!w-[225px] lg:!px-5 lg:!py-4 lg:!text-[length:var(--fontsize-label-xl)]"
-          >
-            Start Free Consultation
-          </Button>
-          <Button
-            variant="primary"
-            className="!px-[12px] !py-[9px] !text-[length:var(--fontsize-label-m)] md:w-auto md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!w-[200px] lg:!px-5 lg:!py-4 lg:!text-[length:var(--fontsize-label-xl)]"
-          >
-            Become A Partner
-          </Button>
         </div>
       </Container>
     </section>

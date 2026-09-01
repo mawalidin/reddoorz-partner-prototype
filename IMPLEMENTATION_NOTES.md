@@ -21,6 +21,29 @@ Tablet-specific findings applied throughout (`md:` breakpoint, 768px):
 - Value section switches to a 2-column layout (heading/CTAs left, cards right)
   only at tablet — both mobile and desktop stack it in a single column.
 
+## How It Works & Value Section — all three breakpoints now verified
+
+Desktop (`3:14408`/`3:14588`), tablet (`27:112115`/`27:112361`), and mobile
+(`3:16065`/`3:16308`) frames have all been inspected directly for these two
+sections. No remaining assumptions for either section — every tier is sourced
+from Figma, not inferred.
+
+Notable findings that shaped the implementation:
+- How It Works step cards needed no mobile-specific overrides at all — the
+  codebase's pre-existing base styles (gap/padding/sizing) already matched the
+  mobile frame exactly. Only tablet needed new `md:` values: fixed `172px`
+  card height, `24px` padding, and a flattened `16px` gap between indicator/
+  title/body (vs. desktop's `24px`/`8px` split grouping) — reverted at `lg`
+  back to the desktop values.
+- Value section cards: mobile and tablet share an identical icon treatment
+  (44px chip, `rounded-lg`, 20px glyph) that's distinct from desktop's larger
+  64px/`rounded-md` chip — so the icon only needs a base + `lg:` override, no
+  separate `md:` tier. Card *direction* does change at `md:` (icon-left/
+  text-right row instead of mobile's stacked column), and the card-list gap
+  is smaller on mobile (`8px`) than tablet/desktop (`16px`).
+
+---
+
 ## Assumption
 
 **Area:** Header mobile navigation

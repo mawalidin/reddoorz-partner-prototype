@@ -1,17 +1,23 @@
 import Button from "../components/Button";
 import Container from "../components/Container";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import iconImageUserPlus from "../assets/value/icon-image-user-plus.svg";
+import iconLineChartUp from "../assets/value/icon-line-chart-up.svg";
+import iconHandshake from "../assets/value/icon-handshake.svg";
 
 const VALUES = [
   {
+    icon: iconImageUserPlus,
     title: "Better Occupancy.",
     body: "Fill more rooms, more nights — driven by 20+ booking channels working for you around the clock.",
   },
   {
+    icon: iconLineChartUp,
     title: "Higher Revenue.",
     body: "AI-powered pricing sets the right rate every day, so you earn more per room — without lifting a finger.",
   },
   {
+    icon: iconHandshake,
     title: "Stronger Partnerships.",
     body: "Backed by a dedicated team, standardized ops, and a trusted brand guests already know.",
   },
@@ -51,19 +57,24 @@ export default function ValueSection() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 md:gap-4">
           {VALUES.map((value, index) => (
             <div
               key={value.title}
-              className={`flex flex-col gap-2 rounded-2xl bg-brand-red p-6 text-white lg:flex-row lg:items-start lg:justify-between lg:rounded-3xl ${reveal} ${visible ? shown : hidden}`}
+              className={`flex flex-col gap-4 rounded-2xl bg-brand-red p-6 text-white md:flex-row md:items-start md:gap-6 lg:min-h-[150px] lg:justify-between lg:rounded-3xl ${reveal} ${visible ? shown : hidden}`}
               style={{ transitionDelay: `${150 + index * 150}ms` }}
             >
-              <p className="font-['Rubik'] text-[length:var(--fontsize-headline-s)] leading-[var(--lineheight-headline-s)] font-medium whitespace-nowrap lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
-                {value.title}
-              </p>
-              <p className="font-['Rubik'] max-w-[500px] text-[length:var(--fontsize-body-s)] leading-[var(--lineheight-body-s)] font-normal lg:text-[length:var(--fontsize-headline-s)] lg:leading-[var(--lineheight-headline-s)] lg:font-semibold">
-                {value.body}
-              </p>
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-[#c81012] p-3 lg:size-16 lg:rounded-md lg:p-4">
+                <img src={value.icon} alt="" className="size-5 lg:size-8" />
+              </span>
+              <div className="flex flex-col gap-2 md:min-w-0 md:flex-1 lg:flex-none lg:gap-6">
+                <p className="font-['Rubik'] text-[length:var(--fontsize-headline-s)] leading-[var(--lineheight-headline-s)] font-medium lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)] lg:whitespace-nowrap">
+                  {value.title}
+                </p>
+                <p className="font-['Rubik'] text-[length:var(--fontsize-body-s)] leading-[var(--lineheight-body-s)] font-normal lg:w-[500px] lg:text-[length:var(--fontsize-headline-s)] lg:leading-[var(--lineheight-headline-s)] lg:font-semibold">
+                  {value.body}
+                </p>
+              </div>
             </div>
           ))}
         </div>
