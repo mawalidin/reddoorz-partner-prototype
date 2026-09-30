@@ -6,7 +6,7 @@ const NAV_LINKS = [
   { label: "Home", href: "#top" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Our Brands", href: "#brands" },
-  { label: "Partner Stories", href: "#stories" },
+  { label: "Partner Stories", href: "#partner-stories" },
 ];
 
 const SOCIALS = [

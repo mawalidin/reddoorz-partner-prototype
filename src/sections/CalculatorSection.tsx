@@ -6,9 +6,16 @@ import typePlus from "../assets/calculator/type-plus.svg";
 import typePremium from "../assets/calculator/type-premium.svg";
 import Button from "../components/Button";
 import Container from "../components/Container";
+import SegmentedSwitch from "../components/SegmentedSwitch";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
 type HotelType = "Basic" | "Plus" | "Premium";
+
+const PROPERTY_TYPES = [
+  { value: "franchised", label: "Franchised" },
+  { value: "leased", label: "Leased" },
+] as const;
+type PropertyType = (typeof PROPERTY_TYPES)[number]["value"];
 
 const HOTEL_TYPES: { type: HotelType; icon: string; occupancy: number; recommendedRate: number }[] = [
   { type: "Basic", icon: typeBasic, occupancy: 55.9, recommendedRate: 200000 },
@@ -32,6 +39,7 @@ export default function CalculatorSection() {
   const [rate, setRate] = useState(300000);
   const [hotelType, setHotelType] = useState<HotelType>("Premium");
   const [submitted, setSubmitted] = useState(true);
+  const [propertyType, setPropertyType] = useState<PropertyType>("franchised");
 
   const benchmark = HOTEL_TYPES.find((h) => h.type === hotelType)!;
 
@@ -54,7 +62,16 @@ export default function CalculatorSection() {
 
   return (
     <section ref={ref} className="bg-[#faf9f6] py-8 md:py-8 lg:py-20">
-      <Container className={`mb-6 flex flex-col gap-2 md:mb-6 md:gap-2 lg:mb-10 lg:gap-4 ${reveal} ${visible ? shown : hidden}`}>
+      <Container className={`mb-6 flex justify-center lg:mb-10 ${reveal} ${visible ? shown : hidden}`}>
+        <SegmentedSwitch
+          label="Property type"
+          options={PROPERTY_TYPES}
+          value={propertyType}
+          onChange={setPropertyType}
+        />
+      </Container>
+
+      <Container className={`mb-6 flex flex-col gap-2 delay-[100ms] md:mb-6 md:gap-2 lg:mb-10 lg:gap-4 ${reveal} ${visible ? shown : hidden}`}>
         <p className="font-['Caveat'] text-[length:var(--fontsize-headline-xs)] leading-[var(--lineheight-headline-xs)] text-[#524f4d] lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
           CALCULATE YOUR REVENUE
         </p>
@@ -64,7 +81,7 @@ export default function CalculatorSection() {
       </Container>
 
       <Container>
-        <div className={`overflow-hidden rounded-3xl bg-[#f0f0f0] ${reveal} delay-[150ms] ${visible ? shown : hidden}`}>
+        <div className={`overflow-hidden rounded-3xl bg-[#f0f0f0] ${reveal} delay-[250ms] ${visible ? shown : hidden}`}>
           <form
             onSubmit={(event) => {
               event.preventDefault();

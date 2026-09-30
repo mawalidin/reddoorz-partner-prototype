@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type ButtonVariant = "primary" | "outline" | "ghost";
+type ButtonVariant = "primary" | "outline" | "plain" | "ghost";
 type ButtonSize = "sm" | "md" | "lg" | "xl";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -15,6 +15,8 @@ const variantClasses: Record<ButtonVariant, string> = {
     "bg-gradient-to-b from-[#fb4042] to-[#ec228a] text-white hover:brightness-105 focus-visible:outline-white",
   outline:
     "bg-background-primary text-brand-grey border border-border-opaque hover:bg-background-alternative",
+  // White pill without a border, for buttons that sit on the off-white page background.
+  plain: "bg-background-primary text-brand-grey hover:bg-background-alternative",
   ghost: "text-brand-grey hover:bg-background-alternative",
 };
 

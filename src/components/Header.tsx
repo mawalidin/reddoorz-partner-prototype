@@ -7,10 +7,10 @@ import logo from "../assets/logo.svg";
 import Button from "./Button";
 
 const NAV_LINKS = [
-  { label: "Our Solutions", href: "#solutions" },
+  { label: "Our Solutions", href: "#business-usp" },
   { label: "How It Works", href: "#how-it-works" },
   { label: "Our Brands", href: "#brands" },
-  { label: "Partner Stories", href: "#stories" },
+  { label: "Partner Stories", href: "#partner-stories" },
 ];
 
 const SCROLL_THRESHOLD = 8;
@@ -110,7 +110,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setLanguage("EN")}
-                className={`rounded-full py-[9px] font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold ${language === "EN" ? "text-brand-red" : "text-brand-grey"}`}
+                className={`rounded-full py-[9px] leading-[normal] font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold ${language === "EN" ? "text-brand-red" : "text-brand-grey"}`}
               >
                 EN
               </button>
@@ -118,7 +118,7 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setLanguage("ID")}
-                className={`rounded-full py-[9px] font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold ${language === "ID" ? "text-brand-red" : "text-brand-grey"}`}
+                className={`rounded-full py-[9px] leading-[normal] font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold ${language === "ID" ? "text-brand-red" : "text-brand-grey"}`}
               >
                 ID
               </button>
@@ -130,17 +130,18 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={closeMenu}
-                  className="flex items-center justify-between gap-2 py-[9px] font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold text-brand-grey"
+                  className="flex items-center justify-between gap-2 py-[9px] leading-[normal] font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold text-brand-grey"
                 >
                   {link.label}
                   <img src={chevronRight} alt="" className="size-4" />
                 </a>
               ))}
               <div className="flex flex-col gap-2 md:flex-row">
-                <Button variant="outline" size="sm" className="w-full md:flex-1">
-                  Start Free Consultation
+                <Button variant="outline" size="sm" className="w-full max-md:!px-3 max-md:!py-[9px] max-md:leading-6 md:flex-1">
+                  <span className="md:hidden">Start Consultation</span>
+                  <span className="hidden md:inline">Start Free Consultation</span>
                 </Button>
-                <Button variant="primary" size="sm" className="w-full md:flex-1">
+                <Button variant="primary" size="sm" className="w-full max-md:!px-3 max-md:!py-[9px] max-md:leading-6 md:flex-1">
                   Become A Partner
                 </Button>
               </div>
