@@ -1,3 +1,4 @@
+import AvailabilityDisclaimer from "../components/AvailabilityNote";
 import Container from "../components/Container";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import PlatformGrid from "./solutions/PlatformGrid";
@@ -22,6 +23,10 @@ export default function SolutionsSection() {
           </h2>
         </div>
         <SolutionsList visible={visible} />
+        <AvailabilityDisclaimer
+          notes={["philippines"]}
+          className={`${reveal} delay-[300ms] ${visible ? shown : hidden}`}
+        />
       </Container>
 
       <Container ref={platformRef} className="mt-16 lg:mt-20">

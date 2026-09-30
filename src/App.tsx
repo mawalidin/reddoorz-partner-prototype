@@ -9,6 +9,8 @@ import MetricsSection from "./sections/MetricsSection";
 import PartnerStoriesSection from "./sections/PartnerStoriesSection";
 import SolutionsSection from "./sections/SolutionsSection";
 import StorytellingSection from "./sections/StorytellingSection";
+import BusinessUspSection from "./sections/BusinessUspSection";
+import TransformationSection from "./sections/TransformationSection";
 import ValueSection from "./sections/ValueSection";
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
         <HeroSection />
         <MetricsSection />
         <StorytellingSection />
+        <BusinessUspSection />
+        <TransformationSection />
         <SolutionsSection />
         <HowItWorksIntro />
         <PartnerStoriesSection />

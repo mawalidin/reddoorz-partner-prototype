@@ -1,5 +1,6 @@
 import { useLenis } from "lenis/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { availabilityMarker } from "../../components/AvailabilityNote";
 import Button from "../../components/Button";
 import iconCheck from "../../assets/solutions/icon-check.svg";
 import iconShieldTick from "../../assets/solutions/icon-shield-tick.svg";
@@ -8,7 +9,7 @@ import thumbnailOperations from "../../assets/solutions/thumbnail-operations.png
 
 const NAV_ITEMS = ["01 Demand & Marketing", "02 Technology & Pricing", "03 Operations & Support"];
 
-const TECH_FEATURES = [
+const TECH_FEATURES: { title: string; body: string; checks?: string[] }[] = [
   {
     title: "Revenue Management System",
     body: "RedFox dynamic pricing reads demand and occupancy to set the best rate, every day, automatically.",
@@ -125,7 +126,7 @@ export default function SolutionsList({ visible }: { visible: boolean }) {
           <div className="flex flex-col items-start gap-6 p-4 md:p-6 lg:flex-row">
             <div className="flex w-full flex-1 flex-col gap-2 text-[#003d99] lg:gap-4">
               <h3 className="font-['Rubik'] text-[length:var(--fontsize-headline-m)] leading-[var(--lineheight-headline-m)] font-medium lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
-                Demand & Marketing
+                Demand & Marketing{availabilityMarker("philippines")}
               </h3>
               <p className="font-['Rubik'] text-[length:var(--fontsize-body-s)] leading-[var(--lineheight-body-s)] font-light lg:text-[length:var(--fontsize-body-xl)] lg:leading-[var(--lineheight-body-xl)]">
                 We list you across 20+ channels, run brand and OTA campaigns, and bring
@@ -133,9 +134,9 @@ export default function SolutionsList({ visible }: { visible: boolean }) {
               </p>
             </div>
             <Button
-              variant="outline"
+              variant="plain"
               size="lg"
-              className="shrink-0 !px-[12px] !py-[9px] !text-[length:var(--fontsize-label-m)] md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!px-5 lg:!py-4"
+              className="shrink-0 max-md:leading-6 md:leading-[normal] !px-[12px] !py-[9px] !text-[length:var(--fontsize-label-m)] md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!px-5 lg:!py-4"
             >
               Learn More
             </Button>
@@ -208,7 +209,7 @@ export default function SolutionsList({ visible }: { visible: boolean }) {
           <div className="flex flex-col items-start gap-6 p-4 md:p-6 lg:flex-row">
             <div className="flex w-full flex-1 flex-col gap-2 text-[#5a2c04] lg:gap-4">
               <h3 className="font-['Rubik'] text-[length:var(--fontsize-headline-m)] leading-[var(--lineheight-headline-m)] font-medium lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
-                Operations & Support
+                Operations & Support{availabilityMarker("philippines")}
               </h3>
               <p className="font-['Rubik'] text-[length:var(--fontsize-body-s)] leading-[var(--lineheight-body-s)] font-light lg:text-[length:var(--fontsize-body-xl)] lg:leading-[var(--lineheight-body-xl)]">
                 Standardized housekeeping, staff training, and 24/7 guest support keep
@@ -216,9 +217,9 @@ export default function SolutionsList({ visible }: { visible: boolean }) {
               </p>
             </div>
             <Button
-              variant="outline"
+              variant="plain"
               size="lg"
-              className="shrink-0 !px-[12px] !py-[9px] !text-[length:var(--fontsize-label-m)] md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!px-5 lg:!py-4"
+              className="shrink-0 max-md:leading-6 md:leading-[normal] !px-[12px] !py-[9px] !text-[length:var(--fontsize-label-m)] md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!px-5 lg:!py-4"
             >
               Learn More
             </Button>

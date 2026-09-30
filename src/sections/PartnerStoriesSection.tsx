@@ -99,7 +99,7 @@ export default function PartnerStoriesSection() {
 
   return (
     <>
-    <section ref={ref} className="bg-[#faf9f6] py-8 lg:py-20">
+    <section id="partner-stories" ref={ref} className="scroll-mt-[var(--header-height)] bg-[#faf9f6] py-8 lg:py-20">
       <Container>
         <h2 className={`mb-6 text-center font-['Rubik'] text-[length:var(--fontsize-headline-m)] leading-[var(--lineheight-headline-m)] font-semibold text-content-primary lg:mb-10 lg:text-[length:var(--fontsize-display-m)] lg:leading-[var(--lineheight-display-m)] ${reveal} ${visible ? shown : hidden}`}>
           Partner stories

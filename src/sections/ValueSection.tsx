@@ -43,14 +43,14 @@ export default function ValueSection() {
           </div>
           <div className="flex flex-row flex-wrap gap-4">
             <Button
-              variant="outline"
-              className="w-auto !px-3 !py-[9px] !text-[length:var(--fontsize-label-m)] lg:!w-[225px] lg:!px-5 lg:!py-4 lg:!text-[length:var(--fontsize-label-xl)]"
+              variant="plain"
+              className="w-auto max-md:leading-6 md:leading-[normal] !px-3 !py-[9px] !text-[length:var(--fontsize-label-m)] md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!h-[54px] lg:!px-5 lg:!py-4 lg:!text-[length:var(--fontsize-label-xl)]"
             >
-              Start Free Consultation
+              Start Consultation
             </Button>
             <Button
               variant="primary"
-              className="w-auto !px-3 !py-[9px] !text-[length:var(--fontsize-label-m)] lg:!w-[200px] lg:!px-5 lg:!py-4 lg:!text-[length:var(--fontsize-label-xl)]"
+              className="w-auto max-md:leading-6 md:leading-[normal] !px-3 !py-[9px] !text-[length:var(--fontsize-label-m)] md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!w-[200px] lg:!h-[54px] lg:!px-5 lg:!py-4 lg:!text-[length:var(--fontsize-label-xl)]"
             >
               Become A Partner
             </Button>

@@ -184,3 +184,15 @@ body {
     transform: scale(0.96);
   }
 }
+
+/* Content swap for switchable sections (e.g. Business USP Franchised/Leased). */
+@keyframes content-swap {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
