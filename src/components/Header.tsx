@@ -4,6 +4,7 @@ import chevronDown from "../assets/icons/chevron-down.svg";
 import chevronRight from "../assets/icons/icon-chevron-right.svg";
 import globeIcon from "../assets/icons/icon-globe.svg";
 import logo from "../assets/logo.svg";
+import { REGISTER_PATH, navigate } from "../router";
 import Button from "./Button";
 
 const NAV_LINKS = [
@@ -15,7 +16,13 @@ const NAV_LINKS = [
 
 const SCROLL_THRESHOLD = 8;
 
-export default function Header() {
+type HeaderProps = {
+  // "register" is the minimal topbar: logo + language only on desktop, no nav or CTAs.
+  variant?: "home" | "register";
+};
+
+export default function Header({ variant = "home" }: HeaderProps) {
+  const isRegister = variant === "register";
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [language, setLanguage] = useState<"EN" | "ID">("EN");
@@ -40,31 +47,42 @@ export default function Header() {
             <a href="#top" className="shrink-0">
               <img src={logo} alt="RedDoorz" className="h-11 w-auto" />
             </a>
-            <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="rounded-full px-3 py-2 font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold text-brand-grey whitespace-nowrap hover:bg-background-alternative"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
+            {!isRegister && (
+              <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-full px-3 py-2 font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold text-brand-grey whitespace-nowrap hover:bg-background-alternative"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            )}
           </div>
 
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className={`items-center gap-3 ${isRegister ? "flex" : "hidden lg:flex"}`}>
             <button
               type="button"
-              className="flex items-center gap-2 rounded-full px-3 py-2 font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold text-brand-grey hover:bg-background-alternative"
+              className={`flex items-center gap-2 font-['Rubik'] text-[length:var(--fontsize-label-m)] font-semibold text-brand-grey ${
+                isRegister
+                  ? "rounded-full py-[9px] hover:opacity-70"
+                  : "rounded-full px-3 py-2 hover:bg-background-alternative"
+              }`}
               aria-label="Select language"
             >
               EN
               <img src={chevronDown} alt="" className="size-4" />
             </button>
-            <Button variant="primary" size="sm">Get Started</Button>
+            {!isRegister && (
+              <Button variant="primary" size="sm" onClick={() => navigate(REGISTER_PATH)}>
+                Get Started
+              </Button>
+            )}
           </div>
 
+          {!isRegister && (
           <button
             type="button"
             className="flex items-center justify-center rounded-full p-2 text-brand-grey hover:bg-background-alternative lg:hidden"
@@ -90,10 +108,11 @@ export default function Header() {
               />
             </svg>
           </button>
+          )}
         </div>
       </header>
 
-      {menuOpen && (
+      {menuOpen && !isRegister && (
         <div
           className="mega-menu-scrim fixed inset-x-0 bottom-0 top-[var(--header-height)] z-40 bg-black/30 lg:hidden"
           onClick={closeMenu}
@@ -136,15 +155,25 @@ export default function Header() {
                   <img src={chevronRight} alt="" className="size-4" />
                 </a>
               ))}
-              <div className="flex flex-col gap-2 md:flex-row">
-                <Button variant="outline" size="sm" className="w-full max-md:!px-3 max-md:!py-[9px] max-md:leading-6 md:flex-1">
-                  <span className="md:hidden">Start Consultation</span>
-                  <span className="hidden md:inline">Start Free Consultation</span>
-                </Button>
-                <Button variant="primary" size="sm" className="w-full max-md:!px-3 max-md:!py-[9px] max-md:leading-6 md:flex-1">
-                  Become A Partner
-                </Button>
-              </div>
+              {!isRegister && (
+                <div className="flex flex-col gap-2 md:flex-row">
+                  <Button variant="outline" size="sm" className="w-full max-md:!px-3 max-md:!py-[9px] max-md:leading-6 md:flex-1">
+                    <span className="md:hidden">Start Consultation</span>
+                    <span className="hidden md:inline">Start Free Consultation</span>
+                  </Button>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    className="w-full max-md:!px-3 max-md:!py-[9px] max-md:leading-6 md:flex-1"
+                    onClick={() => {
+                      closeMenu();
+                      navigate(REGISTER_PATH);
+                    }}
+                  >
+                    Become A Partner
+                  </Button>
+                </div>
+              )}
             </div>
           </nav>
         </div>
