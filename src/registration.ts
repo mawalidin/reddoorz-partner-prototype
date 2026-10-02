@@ -55,10 +55,37 @@ export function formatLocation(l: PropertyLocation) {
 const SUBMITTED_KEY = "registration.submitted";
 let submitted = false;
 
+// The success-page confetti plays once per submission, not on every refresh.
+const CONFETTI_KEY = "registration.confettiPlayed";
+let confettiPlayed = false;
+
+export function hasPlayedConfetti() {
+  if (confettiPlayed) return true;
+  try {
+    confettiPlayed = sessionStorage.getItem(CONFETTI_KEY) === "1";
+  } catch {
+    // ignore
+  }
+  return confettiPlayed;
+}
+
+export function markConfettiPlayed() {
+  confettiPlayed = true;
+  try {
+    sessionStorage.setItem(CONFETTI_KEY, "1");
+  } catch {
+    // in-memory flag still works
+  }
+}
+
 export function markSubmitted() {
   submitted = true;
+  // Every submission earns a fresh celebration: clear the in-memory flag too, not
+  // only the stored one, or a second submit in the same page session stays silent.
+  confettiPlayed = false;
   try {
     sessionStorage.setItem(SUBMITTED_KEY, "1");
+    sessionStorage.removeItem(CONFETTI_KEY);
   } catch {
     // in-memory flag still works
   }
@@ -78,9 +105,11 @@ export function isSubmitted() {
 export function resetRegistration() {
   current = null;
   submitted = false;
+  confettiPlayed = false;
   try {
     sessionStorage.removeItem(KEY);
     sessionStorage.removeItem(SUBMITTED_KEY);
+    sessionStorage.removeItem(CONFETTI_KEY);
   } catch {
     // ignore
   }

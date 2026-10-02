@@ -27,7 +27,7 @@ export default function RegisterHeroSection() {
             type="button"
             onClick={() => setModalOpen(true)}
             aria-haspopup="dialog"
-            className="flex w-full max-w-full cursor-pointer lg:w-[500px] items-center gap-2 rounded-full border border-border-opaque bg-background-primary px-4 py-3 text-left transition-[box-shadow,scale] duration-150 ease-out active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:outline-none lg:gap-3 lg:px-5 lg:py-4"
+            className="flex w-full max-w-full cursor-pointer lg:w-[500px] items-center gap-2 rounded-full border border-border-opaque bg-background-primary px-4 py-3 text-left transition-[box-shadow,scale] duration-150 ease-out active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-content-primary focus-visible:outline-none lg:gap-3 lg:px-5 lg:py-4"
           >
             <img src={searchIcon} alt="" className="size-5 shrink-0" />
             <span className="min-w-0 flex-1 font-['Rubik'] text-[length:var(--fontsize-label-l)] leading-5 font-semibold text-[#949ca9]">

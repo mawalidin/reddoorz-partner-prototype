@@ -34,7 +34,9 @@ const SOCIALS = [
 
 export default function Footer() {
   return (
-    <footer className="overflow-hidden bg-[#f0f0f0]">
+    // Cream backing so the rounded top corners sit on the page colour, not the white body.
+    <div className="bg-[#faf9f6]">
+    <footer className="overflow-hidden rounded-t-3xl bg-[#f0f0f0] md:rounded-t-[32px] lg:rounded-t-[48px]">
       <div className="flex flex-col gap-12 px-4 py-16 md:gap-6 lg:gap-12 lg:px-20">
         <div className="flex flex-col gap-6 md:flex-row md:justify-between">
           <img src={logo} alt="RedDoorz" className="h-11 w-auto self-start" />
@@ -109,5 +111,6 @@ export default function Footer() {
         <img src={footerIllustration} alt="" className="size-full object-cover" />
       </div>
     </footer>
+    </div>
   );
 }

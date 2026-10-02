@@ -1,7 +1,9 @@
+import { useEffect, useRef } from "react";
 import illustration from "../assets/register/registration-complete.png";
 import Button from "../components/Button";
 import { navigate, REGISTER_PATH } from "../router";
-import { resetRegistration } from "../registration";
+import { clearConfetti, burstConfettiFrom } from "../confetti";
+import { hasPlayedConfetti, markConfettiPlayed, resetRegistration } from "../registration";
 
 // Figma: "Back to Home" / "Register A New Property" use the compact button spec
 // below tablet and the larger one at desktop (same as the Submit button).
@@ -16,10 +18,27 @@ const CONTACT_LABEL = "+62 858-8088-1103";
 const CONTACT_HREF = "tel:+6285880881103";
 
 export default function RegistrationSuccessSection() {
+  const illustrationRef = useRef<HTMLImageElement>(null);
+
+  // One burst from the illustration shortly after arriving (once per submission).
+  useEffect(() => {
+    if (hasPlayedConfetti()) return;
+    const timer = window.setTimeout(() => {
+      if (!illustrationRef.current) return;
+      markConfettiPlayed();
+      burstConfettiFrom(illustrationRef.current);
+    }, 450);
+    return () => {
+      window.clearTimeout(timer);
+      clearConfetti();
+    };
+  }, []);
+
   return (
     <section className="mx-auto w-full max-w-[1440px] px-4 py-8 md:p-8 lg:p-20">
       <div className="flex flex-col items-center gap-6 rounded-2xl bg-background-primary p-4 shadow-[0_4px_4px_-1px_rgba(12,12,13,0.1),0_4px_4px_-1px_rgba(12,12,13,0.05)] md:p-5 lg:gap-10 lg:rounded-3xl lg:p-10">
         <img
+          ref={illustrationRef}
           src={illustration}
           alt="A completed application form being stamped “Complete”"
           className="size-[150px] lg:size-[250px]"

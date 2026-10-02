@@ -84,7 +84,7 @@ export default function TransformationSection() {
   const state = visible ? shown : hidden;
 
   return (
-    <section id="transformation" ref={ref} className="bg-[#faf9f6]">
+    <section id="transformation" ref={ref} className="overflow-x-clip bg-[#faf9f6]">
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6 px-4 py-8 md:p-8 lg:gap-10 lg:p-20">
         <div className={`flex flex-col gap-2 lg:gap-4 ${rise} ${state}`}>
           <p className="font-['Caveat'] text-[length:var(--fontsize-headline-xs)] leading-[var(--lineheight-headline-xs)] text-[#524f4d] lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
@@ -98,12 +98,13 @@ export default function TransformationSection() {
         <div
           className={`relative transition-[scale,opacity] duration-[900ms] ${ease} delay-[150ms] ${visible ? "scale-100 opacity-100" : "scale-[0.97] opacity-0"}`}
         >
-          <div className="overflow-hidden" ref={emblaRef}>
+          {/* No overflow clipping here: slides run past the content column and are clipped at the page edge by the section. */}
+          <div ref={emblaRef}>
             <div className="flex touch-pan-y touch-pinch-zoom gap-2 md:gap-4">
               {SLIDES.map((slide, index) => (
                 <figure
                   key={slide}
-                  className="m-0 flex shrink-0 basis-[calc(100%-38px)] flex-col items-center gap-2 md:basis-[calc(100%-11px)] lg:basis-[calc(100%-26px)] lg:gap-4"
+                  className="m-0 flex shrink-0 basis-[calc(100%-38px)] flex-col items-center gap-2 md:basis-[calc(100%-40px)] lg:basis-[calc(100%-26px)] lg:gap-4"
                   aria-roledescription="slide"
                   aria-label={`${index + 1} of ${SLIDES.length}`}
                 >

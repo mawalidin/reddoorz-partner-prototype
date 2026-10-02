@@ -17,6 +17,9 @@ Generated from the `find-animation-opportunities` sweep (all breakpoints) on com
 | [011](011-motion-token-consolidation.md) | Promote the hand-typed ease-out curve to a shared token | LOW | TODO |
 | [012](012-header-chrome-entrance-cohesion.md) | Reconcile header scroll-transition with entrance motion curve | LOW | TODO |
 | [013](013-header-blur-transition-budget.md) | Bring header's transitioned blur radius under the 20px budget | LOW | TODO |
+| [014](014-hide-snap-row-scrollbars.md) | Hide the always-visible native scrollbar on the swipe rows (+ keyboard access) | MEDIUM | **DONE** |
+| [015](015-how-it-works-fit-four-cards-desktop.md) | "How it works": fit all four cards at desktop so the row doesn't scroll | MEDIUM | TODO |
+| [016](016-auto-hiding-scroll-indicator.md) | Auto-hiding scroll indicator for the swipe rows (optional) | LOW | **DONE** |
 
 **Note on 001**: originally written as a plan, then implemented directly in this session (not via a separate executor dispatch) at the user's explicit request to "implement the missed opportunities" from the header/hero audit. A second missed opportunity from that same audit — a subtle accompanying transform on the hero images — was implemented alongside it without a numbered plan, since it wasn't corrective (no finding to fix) and was small enough to execute directly.
 
@@ -36,6 +39,11 @@ Batch 2 (header/hero improve-animations audit):
 4. **012** then **013** — both touch the same `Header.tsx` className string (the outer `<header>`'s scroll-driven transition); doing them together avoids two separate edits to the same line.
 5. **011** — token consolidation; do this *after* 007 lands (or explicitly skip 007) so it knows which elements to sweep.
 6. **010** — biggest blast radius (sitewide `index.css` rule, not local to header/hero); treat as its own standalone decision, not a quick batch item.
+
+Batch 3 (scrollbar audit of the full-bleed swipe rows, commit `f6cc0b7` + uncommitted full-bleed change):
+1. **014** first — removes the permanent scrollbar everywhere and adds keyboard access.
+2. **015** — independent; removes the pointless 63px scroll on "How it works" at desktop. Pairs naturally with 014 (the desktop scrollbar disappears either way, but 015 also removes the dead scroll).
+3. **016** — optional, only after 014; do it if losing the scrollbar cue matters for mouse users at tablet widths.
 
 ## Dependencies
 

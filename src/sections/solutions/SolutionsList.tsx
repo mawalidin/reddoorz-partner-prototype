@@ -86,7 +86,7 @@ export default function SolutionsList({ visible }: { visible: boolean }) {
         aria-label="Solutions sections"
         className={`sticky top-[var(--header-height)] z-10 flex flex-col bg-[#faf9f6] lg:top-24 lg:w-[216px] lg:shrink-0 lg:bg-transparent ${reveal} delay-[150ms] ${visible ? shown : hidden}`}
       >
-        <div className="flex gap-6 overflow-x-auto lg:flex-col lg:gap-0 lg:overflow-visible">
+        <div className="scrollbar-none flex overflow-x-auto lg:flex-col lg:overflow-visible">
           {NAV_ITEMS.map((label, index) => {
             const isActive = index === activeIndex;
             return (
@@ -100,7 +100,7 @@ export default function SolutionsList({ visible }: { visible: boolean }) {
                   aria-hidden="true"
                 />
                 <p
-                  className={`font-['Rubik'] text-[length:var(--fontsize-headline-s)] leading-[var(--lineheight-headline-s)] whitespace-nowrap text-content-primary transition-opacity ${isActive ? "opacity-100" : "opacity-50"}`}
+                  className={`font-['Rubik'] text-[length:var(--fontsize-headline-xs)] leading-[var(--lineheight-headline-xs)] whitespace-nowrap lg:text-[length:var(--fontsize-headline-s)] lg:leading-[var(--lineheight-headline-s)] text-content-primary transition-opacity ${isActive ? "opacity-100" : "opacity-50"}`}
                 >
                   {label}
                 </p>
