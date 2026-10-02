@@ -87,7 +87,7 @@ export default function CalculatorSection() {
               event.preventDefault();
               setSubmitted(true);
             }}
-            className="flex flex-col items-end gap-6 bg-background-primary p-6 md:p-8 lg:p-12"
+            className="flex flex-col items-end gap-6 bg-background-primary p-4 md:p-8 lg:p-12"
           >
             <h3 className="w-full font-['Rubik'] text-[length:var(--fontsize-headline-s)] leading-[var(--lineheight-headline-s)] font-medium text-content-primary md:text-[length:var(--fontsize-headline-m)] md:leading-[var(--lineheight-headline-m)] lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
               Fill the form below:
@@ -173,15 +173,16 @@ export default function CalculatorSection() {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            {/* Mobile: stacked full-width buttons (Figma 116:82162); tablet+: side by side. */}
+            <div className="flex w-full flex-col gap-3 md:w-auto md:flex-row">
               <button
                 type="button"
                 onClick={() => setRate(benchmark.recommendedRate)}
-                className="rounded-full bg-[#f8fafb] px-4 py-3 font-['Rubik'] text-[length:var(--fontsize-label-l)] font-semibold text-brand-grey"
+                className="w-full rounded-full bg-[#f8fafb] px-4 py-3 text-center font-['Rubik'] text-[length:var(--fontsize-label-l)] font-semibold text-brand-grey md:w-auto"
               >
                 Use Recommendation
               </button>
-              <Button type="submit" variant="outline" size="md">
+              <Button type="submit" variant="outline" size="md" className="w-full max-md:!px-5 max-md:!py-4 md:w-auto">
                 View Potential
               </Button>
             </div>
