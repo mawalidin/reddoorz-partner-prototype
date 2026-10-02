@@ -1,4 +1,6 @@
+import { useRef } from "react";
 import Container from "../components/Container";
+import ScrollIndicator from "../components/ScrollIndicator";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
 const STEPS = [
@@ -26,12 +28,13 @@ const STEPS = [
 
 export default function HowItWorksIntro() {
   const { ref, visible } = useRevealOnScroll<HTMLDivElement>({ threshold: 0.2 });
+  const rowRef = useRef<HTMLDivElement>(null);
   const reveal = "transition-[translate,opacity] duration-[900ms] ease-[cubic-bezier(0.23,1,0.32,1)]";
   const hidden = "translate-y-[20%] opacity-0";
   const shown = "translate-y-0 opacity-100";
 
   return (
-    <section id="how-it-works" className="bg-[#faf9f6] py-8 lg:py-20">
+    <section id="how-it-works" className="bleed-host bg-[#faf9f6] py-8 lg:py-20">
       <Container ref={ref} className="flex flex-col gap-6 lg:gap-10">
         <div className={`flex flex-col gap-2 lg:gap-4 ${reveal} ${visible ? shown : hidden}`}>
           <p className="font-['Caveat'] text-[length:var(--fontsize-headline-xs)] leading-[var(--lineheight-headline-xs)] text-[#524f4d] lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
@@ -42,7 +45,13 @@ export default function HowItWorksIntro() {
           </h2>
         </div>
 
-        <div className="flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 lg:gap-4">
+        <div
+          ref={rowRef}
+          tabIndex={0}
+          role="group"
+          aria-label="How it works steps"
+          className="bleed-x scrollbar-none flex snap-x snap-mandatory gap-2 overflow-x-auto pb-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-red lg:gap-4"
+        >
           {STEPS.map((step, index) => (
             <div
               key={step.number}
@@ -63,6 +72,7 @@ export default function HowItWorksIntro() {
             </div>
           ))}
         </div>
+        <ScrollIndicator targetRef={rowRef} />
       </Container>
     </section>
   );

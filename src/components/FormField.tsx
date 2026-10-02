@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 export const inputClasses =
-  "w-full rounded-lg border border-border-opaque bg-background-primary px-4 py-[13px] font-['Rubik'] text-[length:var(--fontsize-body-m)] leading-5 text-content-primary outline-none transition-shadow placeholder:text-content-tertiary focus:ring-2 focus:ring-brand-red";
+  "w-full rounded-lg border border-border-opaque bg-background-primary px-4 py-[13px] font-['Rubik'] text-[length:var(--fontsize-body-m)] leading-5 text-content-primary outline-none transition-shadow placeholder:text-content-tertiary focus:ring-2 focus:ring-content-primary";
 
 export const labelClasses =
   "font-['Rubik'] text-[length:var(--fontsize-label-m)] leading-4 font-medium text-content-primary";

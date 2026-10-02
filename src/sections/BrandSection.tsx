@@ -15,7 +15,9 @@ import sunerra5 from "../assets/brands/sunerra-5.png";
 import uv1 from "../assets/brands/uv-1.png";
 import uv2 from "../assets/brands/uv-2.png";
 import uv3 from "../assets/brands/uv-3.png";
+import { useRef } from "react";
 import Container from "../components/Container";
+import ScrollIndicator from "../components/ScrollIndicator";
 import BrandCarousel from "./brands/BrandCarousel";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 
@@ -53,13 +55,14 @@ const BRANDS = [
 ];
 
 export default function BrandSection() {
+  const rowRef = useRef<HTMLDivElement>(null);
   const { ref, visible } = useRevealOnScroll<HTMLElement>({ threshold: 0.2 });
   const reveal = "transition-[translate,opacity] duration-[900ms] ease-[cubic-bezier(0.23,1,0.32,1)]";
   const hidden = "translate-y-[20%] opacity-0";
   const shown = "translate-y-0 opacity-100";
 
   return (
-    <section id="brands" ref={ref} className="bg-[#faf9f6] py-8 lg:py-20">
+    <section id="brands" ref={ref} className="bleed-host bg-[#faf9f6] py-8 lg:py-20">
       <Container>
         <div className={`mb-6 flex flex-col gap-2 lg:mb-10 lg:gap-4 ${reveal} ${visible ? shown : hidden}`}>
           <p className="font-['Caveat'] text-[length:var(--fontsize-headline-xs)] leading-[var(--lineheight-headline-xs)] text-[#524f4d] lg:text-[length:var(--fontsize-headline-xl)] lg:leading-[var(--lineheight-headline-xl)]">
@@ -70,7 +73,12 @@ export default function BrandSection() {
           </h2>
         </div>
 
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-3 lg:gap-x-4 lg:gap-y-10 lg:overflow-visible lg:pb-0">
+        <div
+          ref={rowRef}
+          tabIndex={0}
+          role="group"
+          aria-label="Our brands"
+          className="bleed-x-until-lg scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-red lg:grid lg:grid-cols-3 lg:gap-x-4 lg:gap-y-10 lg:overflow-visible lg:pb-0">
           {BRANDS.map((brand, index) => (
             <div
               key={brand.name}
@@ -94,6 +102,7 @@ export default function BrandSection() {
             </div>
           ))}
         </div>
+        <ScrollIndicator targetRef={rowRef} />
       </Container>
     </section>
   );

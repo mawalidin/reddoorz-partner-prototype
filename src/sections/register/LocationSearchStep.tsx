@@ -137,7 +137,7 @@ export default function LocationSearchStep({
         <p role="status" className="sr-only">
           {loadingResults ? "Searching…" : locate === "locating" ? "Finding your location…" : ""}
         </p>
-        <label className="flex w-full cursor-text items-center gap-2 rounded-full border border-border-opaque bg-background-primary px-4 py-3 transition-shadow lg:gap-3 lg:px-5 lg:py-4 focus-within:ring-2 focus-within:ring-brand-red">
+        <label className="flex w-full cursor-text items-center gap-2 rounded-full border border-border-opaque bg-background-primary px-4 py-3 transition-shadow lg:gap-3 lg:px-5 lg:py-4 focus-within:ring-2 focus-within:ring-content-primary">
           <img src={searchIcon} alt="" className="size-5 shrink-0" />
           <span className="sr-only">Search location or address</span>
           <input

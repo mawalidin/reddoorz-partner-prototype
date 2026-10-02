@@ -274,3 +274,58 @@ body {
     scale: 1;
   }
 }
+
+/* Full-bleed carousels: a scroll row inside the 1440px container spans the whole
+ * page width, with padding equal to the content gutter so the first card lines up
+ * with the heading while the next card runs to the screen edge.
+ * `.bleed-host` (the section) is the size container: 100cqw = page width without
+ * the scrollbar, and overflow-x: clip stops any horizontal page scroll. */
+:root {
+  --gutter: 16px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 80px;
+  }
+}
+
+.bleed-host {
+  container-type: inline-size;
+  overflow-x: clip;
+}
+
+.bleed-x,
+.bleed-x-until-lg {
+  --bleed-pad: max(var(--gutter), calc((100cqw - 1440px) / 2 + var(--gutter)));
+  margin-inline: calc(-1 * var(--bleed-pad));
+  padding-inline: var(--bleed-pad);
+  scroll-padding-inline: var(--bleed-pad);
+}
+
+/* Hide the native scrollbar on swipe rows (scrolling, snapping and keyboard scroll
+ * keep working). A permanent classic scrollbar on Windows/Linux is chrome with no
+ * information; ScrollIndicator shows position only while scrolling. */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Rows that turn into a grid at desktop go back to the normal content width. */
+@media (min-width: 1024px) {
+  .bleed-x-until-lg {
+    margin-inline: 0;
+    padding-inline: 0;
+    scroll-padding-inline: 0;
+  }
+}

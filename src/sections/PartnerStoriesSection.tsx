@@ -1,6 +1,7 @@
 import useEmblaCarousel from "embla-carousel-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Container from "../components/Container";
+import ScrollIndicator from "../components/ScrollIndicator";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
 import avatarDadang from "../assets/stories/avatar-dadang.png";
 import avatarJoeCole from "../assets/stories/avatar-joe-cole.png";
@@ -54,6 +55,7 @@ const VIDEOS = [
 ];
 
 export default function PartnerStoriesSection() {
+  const reviewsRef = useRef<HTMLDivElement>(null);
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: false,
@@ -99,19 +101,20 @@ export default function PartnerStoriesSection() {
 
   return (
     <>
-    <section id="partner-stories" ref={ref} className="scroll-mt-[var(--header-height)] bg-[#faf9f6] py-8 lg:py-20">
+    <section id="partner-stories" ref={ref} className="bleed-host scroll-mt-[var(--header-height)] bg-[#faf9f6] py-8 lg:py-20">
       <Container>
         <h2 className={`mb-6 text-center font-['Rubik'] text-[length:var(--fontsize-headline-m)] leading-[var(--lineheight-headline-m)] font-semibold text-content-primary lg:mb-10 lg:text-[length:var(--fontsize-display-m)] lg:leading-[var(--lineheight-display-m)] ${reveal} ${visible ? shown : hidden}`}>
           Partner stories
         </h2>
 
         <div className={`relative mb-6 lg:mb-10 ${reveal} delay-[150ms] ${visible ? shown : hidden}`}>
-          <div className="overflow-hidden rounded-2xl md:rounded-3xl" ref={emblaRef}>
+          {/* No clipping here: videos run past the content column and are clipped at the page edge by the section. */}
+          <div ref={emblaRef}>
             <div className="flex touch-pan-y touch-pinch-zoom gap-2 lg:gap-4">
               {VIDEOS.map((video, index) => (
                 <div
                   key={index}
-                  className="relative aspect-square w-[320px] shrink-0 grow-0 basis-auto overflow-hidden rounded-2xl md:aspect-auto md:h-[400px] md:w-[693px] md:rounded-3xl lg:h-[620px] lg:w-[1240px]"
+                  className="relative aspect-square w-[320px] shrink-0 grow-0 basis-auto overflow-hidden rounded-2xl md:aspect-auto md:h-[400px] md:w-[660px] md:rounded-3xl lg:h-[620px] lg:w-[1240px]"
                 >
                   <img
                     src={video.image}
@@ -159,7 +162,12 @@ export default function PartnerStoriesSection() {
           </div>
         </div>
 
-        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
+        <div
+          ref={reviewsRef}
+          tabIndex={0}
+          role="group"
+          aria-label="Partner reviews"
+          className="bleed-x-until-lg scrollbar-none flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-red lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-0">
           {REVIEWS.map((review, index) => (
             <div
               key={review.name}
@@ -190,6 +198,7 @@ export default function PartnerStoriesSection() {
             </div>
           ))}
         </div>
+        <ScrollIndicator targetRef={reviewsRef} />
       </Container>
     </section>
 
