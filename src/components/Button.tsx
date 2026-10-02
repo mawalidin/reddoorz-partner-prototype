@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-type ButtonVariant = "primary" | "outline" | "plain" | "ghost";
+type ButtonVariant = "primary" | "outline" | "plain" | "ghost" | "subtle";
 type ButtonSize = "sm" | "md" | "lg" | "xl";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -18,6 +18,8 @@ const variantClasses: Record<ButtonVariant, string> = {
   // White pill without a border, for buttons that sit on the off-white page background.
   plain: "bg-background-primary text-brand-grey hover:bg-background-alternative",
   ghost: "text-brand-grey hover:bg-background-alternative",
+  // Grey pill (Figma grey40), e.g. "Back to Home" on the success page.
+  subtle: "bg-background-alternative text-brand-grey hover:bg-border-opaque",
 };
 
 // Figma defines a different padding/font-size pairing per context rather than
@@ -40,7 +42,7 @@ export default function Button({
   return (
     <button
       type="button"
-      className={`inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-['Rubik'] font-semibold whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-red ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
+      className={`inline-flex shrink-0 items-center justify-center gap-2 rounded-full font-['Rubik'] font-semibold whitespace-nowrap transition-[background-color,filter,scale] duration-150 ease-out active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-red ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
       {...rest}
     >
       {children}

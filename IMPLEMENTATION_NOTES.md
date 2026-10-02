@@ -149,3 +149,122 @@ Notable findings that shaped the implementation:
 **Reason:** This Figma layer (`3:14272`, between Metrics and Storytelling) is marked `hidden` in the source file, indicating it's not part of the current published design.
 
 **Confidence:** High
+
+---
+
+## Register Property screen (`/register`)
+
+Figma: desktop `262:70364`, tablet `300:146289`, mobile `290:106672` — all three
+inspected directly; layout values are sourced from the frames.
+
+- **Routing:** no router dependency was added; `src/router.ts` is a small History-API
+  helper (`/` and `/register`). "Get Started" (header) and every "Become A Partner"
+  button navigate to `/register`. Hosting must serve `index.html` for `/register`.
+- **Section anchors on this screen:** header/footer `#…` links navigate back to the
+  home page and land on that section (handled once in `App.tsx`).
+- **Search field:** Figma draws it as a button ("Search Button"). Implemented as a
+  styled `type="search"` input so it is typable; there is no results/next-step design,
+  so submitting does nothing yet.
+- **Topbar:** `Header variant="register"` — desktop shows logo + EN only (nav/CTAs are
+  hidden in the frame); tablet/mobile show the hamburger with nav links and language
+  (the CTAs are omitted since the user is already registering). Menu content on this
+  screen is inferred.
+- **Page background:** `#faf9f6` (matches the home page and the tablet/mobile frames).
+- **Hero image:** `src/assets/register/hero.jpg` (exported from Figma, 1440×960).
+
+### Address modal (desktop only so far)
+
+Figma desktop frames: Default `290:83923`, Search Filled `290:88440`, Search Empty
+(not found) `290:92977`, Property Address `304:183265`. Tablet/mobile modal frames
+exist but are not implemented yet; the modal is merely fluid below 800px.
+
+- Search button on `/register` opens the modal (`src/sections/register/`).
+  Step 1 "Enter your address" → step 2 "Property Address"; Back keeps the typed query.
+- **Search:** starts at 3+ characters (trimmed), 250ms debounce, against local mock
+  data (`src/data/mockAddresses.ts`, every keyword must match). Below 3 characters the
+  default "Use my current location" row shows; while searching it is hidden, as in the
+  Figma Search Filled/Empty frames.
+- **Use my current location:** real browser Geolocation; the nearest *mock* address is
+  selected (stand-in for reverse geocoding). If permission is denied/unavailable an
+  inline error is shown instead of silently picking an address (not in Figma).
+- Mock "City / Regency" values use real cities (e.g. Jakarta Pusat) rather than Figma's
+  placeholder "Kecamatan Tanah Abang".
+- Property Address "Next" has no design for a following step, so it is currently a
+  no-op. Country has a single option (Indonesia).
+- Location text uses Manrope per Figma → added `@fontsource/manrope`.
+
+### Address dialog — tablet & mobile
+
+Tablet frames (`300:152103`, `303:150191`, `304:178328`) and mobile frames
+(`290:126454`, `290:130957`, `290:135529`) are now implemented. Base classes are the
+mobile values, `md:` = tablet, `lg:` = desktop.
+
+- **Mobile = bottom sheet** (`< 768px`): anchored to the bottom, 20px top radius, 34px
+  bottom padding, content-height up to `100dvh - 68px` (Figma: 776px of 844px). Slides
+  up on open. Cross icon top-right replaces the modal close button; the heading row's
+  "Enter Your Address" text is `opacity:0` in Figma, so it is omitted.
+- **Swipe down to dismiss** (not in Figma, expected bottom-sheet behavior): drag the
+  top strip down >100px; backdrop tap and Esc also close.
+- Mobile differences: 16/24 titles, Building Name / Unit fields stack in one column,
+  16px field gap, 8px result-row padding.
+- Result rows wrap onto several lines in Figma because of long lorem ipsum; sheet
+  height is content-driven, so with the short mock addresses it is shorter than the
+  670px shown in the Search Filled frame.
+
+### Property Details page (`/register/details`)
+
+Figma: desktop `277:78417`, tablet `303:159520`, mobile `290:116872`. Reached from
+"Next" in the Property Address modal/sheet.
+
+- The confirmed (editable) address is kept in `src/registration.ts` (memory +
+  sessionStorage) and rendered under "Property Location" instead of Figma's lorem
+  ipsum. Visiting the page without an address redirects back to `/register`.
+- Native form validation covers the required fields (Owner Full Name, Mobile Number,
+  Property Type, Number of Rooms, privacy consent). A valid submit goes to the success page.
+- Radio and checkbox are native inputs styled to match; Figma only shows the
+  unchecked state, so the checked state (red) is inferred.
+- "Privacy Policy" links to a placeholder `/privacy-policy` (no such page exists).
+- Copy kept exactly as in Figma, including "Apartement".
+- Property Location text is 14px/20px at every breakpoint (mobile was updated in Figma).
+- The house illustration is a single image; the Figma layer is named "2-3 Hotel", so
+  it may be meant to change per property type — no variants were provided.
+
+### Motion pass (register flow)
+
+- **Dialog exit:** `Modal` keeps the dialog mounted with `data-closing` and calls
+  `onClose` after 180ms (modal) / 280ms (sheet; `translateY(100%)`, drawer curve
+  `cubic-bezier(0.32,0.72,0,1)`). Applies to the cross, Esc, backdrop and drag.
+- **Sheet drag:** dismiss on >100px *or* a flick (>0.11px/ms); the exit/snap-back
+  transition starts from the current drag position.
+- **Step swap:** search ⇄ Property Address reuses `content-swap` at 220ms (it rises
+  12px, slightly more than the 8px first proposed).
+- **Press feedback:** Button, BackLink and the page search trigger scale to 0.97/0.98
+  on `:active` (150ms). Tailwind v4 scale utilities use the `scale` property, so the
+  transition lists name `scale`, not `transform`.
+- **Dynamic regions:** results/error fade in (150ms); empty state pops in (200ms).
+- **Radio/checkbox:** radio border and checkbox tick/fill transition (120–150ms).
+- Reduced motion: the global rule collapses durations; the exit timer is 0 then.
+
+### Registration success page (`/register/success`)
+
+Figma: desktop `290:97547`, tablet `303:164052`, mobile `296:114756`.
+
+- Submit Registration (after native validation) sets a "submitted" flag
+  (`src/registration.ts`) and navigates here; visiting directly without submitting
+  redirects to `/register`. **Nothing is actually sent anywhere** (prototype).
+- "Back to Home" → `/`. "Register A New Property" clears the saved address/flag and
+  → `/register`.
+- The contact number (+62 858-8088-1103) is Figma's placeholder, linked as `tel:`.
+- Illustration: Figma node `306:197624` exported as a 750px PNG (3×). The SVG export
+  of that node includes the whole surrounding page, so PNG was used instead; replace
+  with a clean SVG if one is exported.
+- Tablet/mobile text sizes (24/32 title, 14/20 body) are inferred from the frame
+  geometry, not read from the Figma code.
+- New `subtle` Button variant (grey pill) for "Back to Home".
+
+- **Property type illustration:** selecting a Property Type swaps the grey panel image
+  to the matching file in `src/assets/register/property-typeimage/` (fade-in 150ms).
+  Mapping: 1-2 Star Hotel → `2-3 Hotel.png` (assumed from the filename), 3 Star →
+  `3 Hotel.png`, 4-5 Star → `4-5 Hotel.png`, Villa, Homestay, Apartement →
+  `Apartment.png`, Guest House → `Guesthouse.png`. "Other" has no image and keeps the
+  default house (also shown before any selection).

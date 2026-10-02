@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../components/Button";
+import { REGISTER_PATH, navigate } from "../router";
 import SegmentedSwitch from "../components/SegmentedSwitch";
 import slide1 from "../assets/hero/carousel-1.jpg";
 import slide2 from "../assets/hero/carousel-2.jpg";
@@ -47,6 +48,7 @@ export default function HeroSection() {
           </Button>
           <Button
             variant="primary"
+            onClick={() => navigate(REGISTER_PATH)}
             className="max-md:leading-6 md:leading-[normal] !px-[12px] !py-[9px] !text-[length:var(--fontsize-label-m)] md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!h-[54px] lg:!w-[200px] lg:!px-5 lg:!py-4 lg:!text-[length:var(--fontsize-label-xl)]"
           >
             Become A Partner

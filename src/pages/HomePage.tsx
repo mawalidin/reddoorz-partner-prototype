@@ -1,0 +1,37 @@
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import AwardsSection from "../sections/AwardsSection";
+import BrandSection from "../sections/BrandSection";
+import BusinessUspSection from "../sections/BusinessUspSection";
+import CalculatorSection from "../sections/CalculatorSection";
+import HeroSection from "../sections/HeroSection";
+import HowItWorksIntro from "../sections/HowItWorksIntro";
+import MetricsSection from "../sections/MetricsSection";
+import PartnerStoriesSection from "../sections/PartnerStoriesSection";
+import SolutionsSection from "../sections/SolutionsSection";
+import StorytellingSection from "../sections/StorytellingSection";
+import TransformationSection from "../sections/TransformationSection";
+import ValueSection from "../sections/ValueSection";
+
+export default function HomePage() {
+  return (
+    <>
+      <Header />
+      <main>
+        <HeroSection />
+        <MetricsSection />
+        <StorytellingSection />
+        <BusinessUspSection />
+        <TransformationSection />
+        <SolutionsSection />
+        <HowItWorksIntro />
+        <PartnerStoriesSection />
+        <CalculatorSection />
+        <BrandSection />
+        <ValueSection />
+        <AwardsSection />
+      </main>
+      <Footer />
+    </>
+  );
+}

@@ -1,6 +1,7 @@
 import Button from "../components/Button";
 import Container from "../components/Container";
 import { useRevealOnScroll } from "../hooks/useRevealOnScroll";
+import { REGISTER_PATH, navigate } from "../router";
 import iconImageUserPlus from "../assets/value/icon-image-user-plus.svg";
 import iconLineChartUp from "../assets/value/icon-line-chart-up.svg";
 import iconHandshake from "../assets/value/icon-handshake.svg";
@@ -50,6 +51,7 @@ export default function ValueSection() {
             </Button>
             <Button
               variant="primary"
+              onClick={() => navigate(REGISTER_PATH)}
               className="w-auto max-md:leading-6 md:leading-[normal] !px-3 !py-[9px] !text-[length:var(--fontsize-label-m)] md:!px-4 md:!py-3 md:!text-[length:var(--fontsize-label-l)] lg:!w-[200px] lg:!h-[54px] lg:!px-5 lg:!py-4 lg:!text-[length:var(--fontsize-label-xl)]"
             >
               Become A Partner
